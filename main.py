@@ -1,10 +1,22 @@
-import random, string, json
+import random, string, json, getpass
 
 def line(): 
     for x in range(50): print("-",end="")
     print()
 
-def encrypt(message): # Uses caesar cipher to encrypt strings
+def verify():
+    for x in range(3):
+        line()
+        password = getpass.getpass("Enter password: ")
+        line()
+        if encrypt(password) == "Oji5567:;&":
+            print("Access granted")
+            return 
+        else: print("Password incorrect")
+    print("Program will now close...")
+    exit()
+
+def encrypt(message): 
     cipher = ""
     for x in message:
         newOrd = ord(x) + 5 
@@ -34,6 +46,8 @@ def create_password():
         return password
 
 def main():
+    verify()
+    
     file = open("PasswordManager\\data.json")
     data = json.load(file)
 
@@ -50,7 +64,7 @@ def main():
         line()
         if action == "1":
             print("\t\tCreate new password")
-
+            line()
             name = input("\nName of password: ")
             print("\n1. Create your own password"
                 "\n2. Generate random password")
@@ -58,14 +72,17 @@ def main():
             line()
             if choice == "1":
                 password = create_password()
+                data[encrypt(name)] = encrypt(password)
+                with open ("PasswordManager\data.json",'w') as f: json.dump(data,f, indent=4)
             elif choice =="2":
                 password = generate_password();
-            data[encrypt(name)] = encrypt(password)
-            with open ("PasswordManager\data.json",'w') as f: json.dump(data,f, indent=4)
+                data[encrypt(name)] = encrypt(password)
+                with open ("PasswordManager\data.json",'w') as f: json.dump(data,f, indent=4)
+            else: print("Error input")   
         
         elif action == "2":
             print("\t\tDelete password")
-
+            line()
             name = input("\nEnter password name: ")
             line()
             if encrypt(name) in data:
@@ -76,7 +93,7 @@ def main():
         
         elif action == "3":
             print("\t\tView Passwords")
-
+            line()
             for key,value in data.items(): print(f"{decrypt(key)}: {decrypt(value)}")
         
         elif action == "4":
