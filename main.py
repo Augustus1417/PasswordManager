@@ -1,10 +1,10 @@
 import random, string, json
 
-def line():
+def line(): 
     for x in range(50): print("-",end="")
     print()
 
-def encrypt(message):
+def encrypt(message): # Uses caesar cipher to encrypt strings
     cipher = ""
     for x in message:
         newOrd = ord(x) + 5 
@@ -20,7 +20,6 @@ def decrypt(cipher):
 
 def generate_password():
     print("Password generated")
-    line()
     return ''.join([random.choice(string.ascii_letters + string.digits + string.punctuation ) for n in range(15)])
 
 def create_password():
@@ -33,14 +32,15 @@ def create_password():
     else: 
         print("Password created")
         return password
-    
+
 def main():
     file = open("PasswordManager\\data.json")
     data = json.load(file)
 
     line()
-    print("\t\tPassword Manager\n")
+    print("\t\tPassword Manager")
     while True:
+        line()
         print("1. Create new password"
             "\n2. Delete password"
             "\n3. View passwords"
@@ -62,7 +62,25 @@ def main():
                 password = generate_password();
             data[encrypt(name)] = encrypt(password)
             with open ("PasswordManager\data.json",'w') as f: json.dump(data,f, indent=4)
-        if action == "2":
-            print("\t\tCreate new password")
+        
+        elif action == "2":
+            print("\t\tDelete password")
+
+            name = input("\nEnter password name: ")
+            line()
+            if encrypt(name) in data:
+                del data[encrypt(name)]
+                with open ("PasswordManager\data.json",'w') as f: json.dump(data,f, indent=4)
+                print("Password deleted successfully")
+            else: print("Password not found")
+        
+        elif action == "3":
+            print("\t\tView Passwords")
+
+            for key,value in data.items(): print(f"{decrypt(key)}: {decrypt(value)}")
+        
+        elif action == "4":
+            print("Program will now close...")
+            break
 
 if __name__ == "__main__": main()
