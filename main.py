@@ -18,16 +18,12 @@ def verify():
 
 def encrypt(message): 
     cipher = ""
-    for x in message:
-        newOrd = ord(x) + 5 
-        cipher += chr(newOrd)
+    for x in message: cipher += chr(ord(x) + 5 )
     return cipher
 
 def decrypt(cipher):
     ciphered = ""
-    for x in cipher:
-        newOrd = ord(x) - 5 
-        ciphered += chr(newOrd)
+    for x in cipher: ciphered += chr(ord(x) - 5 )
     return ciphered
 
 def generate_password():
@@ -73,11 +69,11 @@ def main():
             if choice == "1":
                 password = create_password()
                 data[encrypt(name)] = encrypt(password)
-                with open ("PasswordManager\data.json",'w') as f: json.dump(data,f, indent=4)
+                with open ("PasswordManager\\data.json",'w') as f: json.dump(data,f, indent=4)
             elif choice =="2":
                 password = generate_password();
                 data[encrypt(name)] = encrypt(password)
-                with open ("PasswordManager\data.json",'w') as f: json.dump(data,f, indent=4)
+                with open ("PasswordManager\\data.json",'w') as f: json.dump(data,f, indent=4)
             else: print("Error input")   
         
         elif action == "2":
@@ -87,7 +83,7 @@ def main():
             line()
             if encrypt(name) in data:
                 del data[encrypt(name)]
-                with open ("PasswordManager\data.json",'w') as f: json.dump(data,f, indent=4)
+                with open ("PasswordManager\\data.json",'w') as f: json.dump(data,f, indent=4)
                 print("Password deleted successfully")
             else: print("Password not found")
         
