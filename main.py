@@ -1,20 +1,8 @@
-import random, string, json, getpass
+import random, string, json
 
 def line(): 
     for x in range(50): print("-",end="")
     print()
-
-def verify():
-    for x in range(3):
-        line()
-        password = getpass.getpass("Enter password: ")
-        line()
-        if encrypt(password) == "Oji5567:;&":
-            print("Access granted")
-            return 
-        else: print("Password incorrect")
-    print("Program will now close...")
-    exit()
 
 def encrypt(message): 
     cipher = ""
@@ -42,9 +30,7 @@ def create_password():
         return password
 
 def main():
-    verify()
-    
-    file = open("PasswordManager\\data.json")
+    file = open("data.json")
     data = json.load(file)
 
     line()
@@ -69,11 +55,11 @@ def main():
             if choice == "1":
                 password = create_password()
                 data[encrypt(name)] = encrypt(password)
-                with open ("PasswordManager\\data.json",'w') as f: json.dump(data,f, indent=4)
+                with open ("data.json",'w') as f: json.dump(data,f, indent=4)
             elif choice =="2":
                 password = generate_password();
                 data[encrypt(name)] = encrypt(password)
-                with open ("PasswordManager\\data.json",'w') as f: json.dump(data,f, indent=4)
+                with open ("data.json",'w') as f: json.dump(data,f, indent=4)
             else: print("Error input")   
         
         elif action == "2":
@@ -83,7 +69,7 @@ def main():
             line()
             if encrypt(name) in data:
                 del data[encrypt(name)]
-                with open ("PasswordManager\\data.json",'w') as f: json.dump(data,f, indent=4)
+                with open ("data.json",'w') as f: json.dump(data,f, indent=4)
                 print("Password deleted successfully")
             else: print("Password not found")
         
