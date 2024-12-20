@@ -4,12 +4,9 @@ A simple password manager written in Python to securely store, view, create, and
 
 ## Features
 
-- **Secure Login**: Password-protected access to the program.
 - **Password Encryption**: Stores passwords in an encrypted format for security.
 - **Generate Passwords**: Automatically generate strong, random passwords.
 - **Create Custom Passwords**: Manually create and store passwords.
-- **Delete Passwords**: Remove stored passwords as needed.
-- **View Passwords**: Decrypt and display stored passwords.
 
 ## Getting Started
 
